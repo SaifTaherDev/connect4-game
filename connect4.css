@@ -1,0 +1,12 @@
+﻿body {
+    margin: 0;
+    background-image: url("images/background_2.jpg");
+}
+canvas{
+    border:5px solid black;
+    background:transparent;
+    position: absolute;
+}
+img{
+    display:none;
+}

@@ -29,6 +29,9 @@ class square {
                 this.sparkleCounter++;
             }
         }
+        if (slowDownFactor > 0) {
+            winGlow();
+        }
     }
 }
 
@@ -57,11 +60,17 @@ class circle {
         ctxOne.lineWidth = 0.5;
         if (this.travelBool) {
             this.travelCounter = 7;
+        } else {
+            this.travelCounter = 1;
         }
         for (let counter = 0; counter < this.travelCounter; counter++) {
             ctxOne.globalAlpha = counter / 7;
             ctxOne.beginPath();
-            ctxOne.arc(0, (this.accel) * counter, this.radius, 0, this.arcProgress);
+            if (this.travelBool) {
+                ctxOne.arc(0, (this.accel) * counter, this.radius, 0, this.arcProgress);
+            } else {
+                ctxOne.arc(0, 0, this.radius, 0, this.arcProgress);
+            }
             if (this.deGlowCounter < 50) {
                 ctxOne.fill();
             } else {
@@ -127,7 +136,8 @@ class circle {
             this.accel += 0.075;
             this.posY += this.accel;
             this.distanceLeft -= this.accel;
-        }else{
+        } else {
+            this.accel = 0;
             squareArr[selectedCol][selectedRow].clr = this.clr;
             squareArr[selectedCol][selectedRow].initiateSparkle();
             this.active = false;

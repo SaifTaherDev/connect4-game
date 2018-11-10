@@ -18,9 +18,7 @@ function drawSubBoard() {
 function drawCircles() {
     for (let subArr of circleArr) {
         for (let circle of subArr) {
-            if(circle.active){
-                circle.draw();
-            }
+            circle.draw();
         }
     }
 }

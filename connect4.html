@@ -8,11 +8,18 @@
 <body>
     <img src="images/connect4_sqr.png" />
 
-    <input id="inputOne" />
-    <input id="inputTwo" />
+    <input id="inputOne" disabled/>
+    <input id="inputTwo" disabled/>
 
     <canvas id="canvasOne"></canvas>
     <canvas id="canvasTwo"></canvas>
+
+    <div id="winImg"></div>
+    <div id="winner"></div>
+    <div id="anotherGamePrompt"></div>
+
+    <div id="goodBye"></div>
+
     <script src="scripts/howler.min.js"></script>
     <script src="scripts/init.js"></script>
     <script src="scripts/class.js"></script>
@@ -20,6 +27,7 @@
     <script src="scripts/draw.js"></script>
     <script src="scripts/detect.js"></script>
     <script src="scripts/win.js"></script>
+    <script src="scripts/outro.js"></script>
     <script src="scripts/mainLoop.js"></script>
 </body>
 </html>

@@ -39,7 +39,17 @@ function checkAvalibleSquare(colIndex) {
 
 function detectWin() {
     if (detectWinVertical() || detectWinHoriz() || detectWinDiagonal()) {
+        canvasTwo.removeEventListener("click", callDetect);
+        winner = streak;
         slowDownWin();
+        let lastKnownPosY = circleArr[selectedCol][5 - selectedRow].posY;
+        let setWinner = setInterval(function(){
+            if(circleArr[selectedCol][5 - selectedRow].posY == lastKnownPosY){
+                callWinner();
+                clearInterval(setWinner);
+            }
+            lastKnownPosY = circleArr[selectedCol][5 - selectedRow].posY;
+        }, 50);
     }
 }
 

@@ -29,8 +29,16 @@ class square {
                 this.sparkleCounter++;
             }
         }
-        if (slowDownFactor > 0) {
+        if (slowDownFactor > 0 && glowBool) {
             winGlow();
+            let glowInter = setInterval(function () {
+                if (glowBool) {
+                    winGlow();
+                } else {
+                    clearInterval(glowInter);
+                }
+            }, 2000);
+            setTimeout(function () { clearInterval(glowInter) }, 30000);
         }
     }
 }
@@ -46,11 +54,11 @@ class circle {
         this.deGlowBool = false;
         this.glowCounter = 0;
         this.deGlowCounter = 50;
-        this.active = true;
         this.distanceLeft = squareArr[selectedCol][selectedRow].posY + (CH / 14);
         this.travelBool = false;
         this.travelCounter = 1;
         this.accel = 0;
+        this.active = true;
     }
     draw() {
         ctxOne.save();
@@ -88,8 +96,10 @@ class circle {
             this.glow(this.deGlowCounter);
             this.deGlowCounter--;
         }
-        if(this.deGlowCounter < 2){
-            this.travel();
+        if (this.deGlowCounter < 2) {
+            if (this.active) {
+                this.travel();
+            }
         }
     }
     spawn() {
@@ -103,7 +113,9 @@ class circle {
         }
         if (this.deGlowCounter < 0) {
             this.deGlowBool = false;
-            this.travel();
+            if (this.active) {
+                this.travel();
+            }
         }
     }
     transform(){
@@ -137,11 +149,17 @@ class circle {
             this.posY += this.accel;
             this.distanceLeft -= this.accel;
         } else {
+            this.active = false;
+            this.posX = squareArr[selectedCol][selectedRow].posX + (squareArr[selectedCol][selectedRow].width / 2);
+            this.posY = squareArr[selectedCol][selectedRow].posY + (squareArr[selectedCol][selectedRow].height / 2);
             this.accel = 0;
             squareArr[selectedCol][selectedRow].clr = this.clr;
             squareArr[selectedCol][selectedRow].initiateSparkle();
-            this.active = false;
-            canvasTwo.addEventListener("click", callDetect);
+            if(winner != undefined){
+                canvasTwo.removeEventListener("click", callDetect);
+            }else{
+                canvasTwo.addEventListener("click", callDetect);
+            }
         }
     }
 }
